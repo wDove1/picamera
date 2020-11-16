@@ -1614,6 +1614,11 @@ class PiCamera(object):
             with self._encoders_lock:
                 if use_video_port:
                     del self._encoders[splitter_port]
+             
+    def capture_direct(self,output, format=None, use_video_port=False, resize=None,splitter_port=0, bayer=False, **options):
+        self.capture(output)
+        self.close()
+        return cv2.imread(output)
 
     def capture_sequence(
             self, outputs, format='jpeg', use_video_port=False, resize=None,
